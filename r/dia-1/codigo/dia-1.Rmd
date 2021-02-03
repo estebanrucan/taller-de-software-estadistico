@@ -1,0 +1,164 @@
+---
+title: "Taller de Software Estadístico - Día 1"
+author: "CA FMAT & CEFMAT"
+date: "15 de febrero"
+output: 
+  prettydoc::html_pretty:
+    theme: architect
+    highlight: tango
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, 
+                      fig.align = "center", comment = "")
+require(magrittr); require(dplyr); require(DT)
+```
+
+## Importar un data frame en R
+
+En vez de usar `codigo//datos-procesados//owid-covid-data.csv`, podemos usar lo siguiente gracias al package `here`:
+
+```{r pressure}
+# install.packages("rio")
+# install.packages("here")
+
+data <- rio::import(here::here("codigo", "datos-sin-procesar", "owid-covid-data.csv"))
+
+head(data[, 1:5])
+```
+
+
+> El package `rio` acepta cualquier formato de archivo.
+
+
+## El package `magrittr`
+
+```{r eval=FALSE}
+install.packages("maggritr")
+require(magrittr)
+```
+
+
+* Nos permite usar el famoso "pipe" `%>%`. 
+* Es una forma más moderna y ordenada para programar en R.
+* Usa la memoria del sistema de forma más eficiente.
+* Se hace con `CTRL o CMD` + `SHIFT` + `M`.
+* Su uso más común es para explorar bases de datos.
+
+### Ejemplos
+
+#### 1. 
+
+
+En vez de hacer:
+
+```{r}
+apply((matrix(1:100, ncol = 2)), 2, mean)
+```
+
+Podemos hacer:
+
+```{r}
+1:100 %>% # Crear vector del 1 al 100
+    matrix(ncol = 2) %>% # Crear una matriz con 2 columnas
+    apply(2, mean) # Aplicar función mean a columnas
+```
+Se ve mucho más &#10024; ordenado &#10024;. 
+
+#### 2. 
+
+Esto nos dará error
+
+```{r, eval=FALSE}
+1:5 %>%
+    * 5 %>% 
+    mean
+    
+```
+
+Debemos hacer:
+
+```{r}
+1:5 %>%
+    "*" (5) %>% 
+    mean
+```
+> Admite operadores como "+", "-", "*" y "/". El número debe ir siempre entre paréntesis.
+
+#### 3.
+
+Podemos crear una variable y después modificarla.
+
+```{r}
+
+suma_y_media <- 1:10 %>%
+    "+" (50)
+
+suma_y_media
+```
+
+Ahora calculamos la media:
+
+```{r}
+suma_y_media <- suma_y_media %>% 
+    mean
+
+suma_y_media
+```
+
+## El package `dplyr`
+
+```{r eval=FALSE}
+install.packages("dplyr")
+require(dplyr)
+```
+
+* Es una potente herramienta en conjunto a `magrittr` para analizar datos en R.
+* Sus principales funciones son `filter`, `group_by`, `summarize`, `mutate`, `arrange` y `select`.
+
+### `filter`
+
+Sirve para decirle a R que selecciones solo las filas que cumplan la condición que indiquemos. Ejemplo:
+
+```{r}
+# install.packages("DT")
+# require(DT)
+
+filtro_Sepal.Length <- iris %>% 
+    filter(Sepal.Length >= 7.4)
+
+filtro_Sepal.Length %>% # Solo las primeras 5 columnas
+    datatable() # Para visualizar tablas de forma interactiva
+```
+
+### `group_by` y `summarize`
+
+* Ambas deben ser usadas en conjunto.
+* `group_by`: Sirve para agrupar según una variable categórica.
+* `summarize`: Para mostrar la información que necesitamos ver después de usar `group_by`.
+
+Ejemplo:
+
+```{r}
+group_by_Species <- iris %>% 
+    group_by(Species) %>% # Agrupamos según especie 
+    summarize(mean_Sepal.Width = mean(Sepal.Width),
+              mean_Sepal.Length = mean(Sepal.Length)) # Información que necesitamos ver de cada Especie
+
+group_by_Species %>% 
+    datatable() # Vizualizamos
+```
+
+### `mutate`
+
+Podemos crear una variable nueva en la base de datos a partir de variables ya existentes. Ejemplo:
+
+```{r}
+mutate_iris <- iris %>% 
+    mutate(Sepal.Sum = Sepal.Length + Sepal.Width) # Creamos una variable Sepal.Sum
+
+mutate_iris %>% 
+    datatable()
+```
+> Vemos que se creo una variable nueva al final de la base.
