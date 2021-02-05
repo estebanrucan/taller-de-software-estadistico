@@ -3,15 +3,13 @@ title: "Taller de Software Estadístico - Día 1"
 author: "CA FMAT & CEFMAT"
 date: "15 de febrero"
 output: 
-  prettydoc::html_pretty:
-    theme: architect
-    highlight: tango
-    toc: true
+  rmdformats::readthedown:
+    highlight: kate
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, 
-                      fig.align = "center", comment = "")
+                      fig.align = "center", comment = NA)
 require(magrittr); require(dplyr); require(DT)
 ```
 
@@ -73,8 +71,7 @@ Esto nos dará error
 ```{r, eval=FALSE}
 1:5 %>%
     * 5 %>% 
-    mean
-    
+    mean()
 ```
 
 Debemos hacer:
@@ -82,7 +79,7 @@ Debemos hacer:
 ```{r}
 1:5 %>%
     "*" (5) %>% 
-    mean
+    mean()
 ```
 > Admite operadores como "+", "-", "*" y "/". El número debe ir siempre entre paréntesis.
 
@@ -102,7 +99,7 @@ Ahora calculamos la media:
 
 ```{r}
 suma_y_media <- suma_y_media %>% 
-    mean
+    mean()
 
 suma_y_media
 ```
@@ -135,7 +132,7 @@ filtro_Sepal.Length %>% # Solo las primeras 5 columnas
 ### `group_by` y `summarize`
 
 * Ambas deben ser usadas en conjunto.
-* `group_by`: Sirve para agrupar según una variable categórica.
+* `group_by`: Sirve para agrupar según una variable categórica. Puede recibir más de una variable, según la necesidad que se tenga.
 * `summarize`: Para mostrar la información que necesitamos ver después de usar `group_by`.
 
 Ejemplo:
@@ -161,4 +158,71 @@ mutate_iris <- iris %>%
 mutate_iris %>% 
     datatable()
 ```
+
 > Vemos que se creo una variable nueva al final de la base.
+
+
+### `arrange`
+
+* Sirve para ordenar las columnas de la base de datos en orden ascendente o descendente.
+* Se puede seleccionar más de una variable, según la necesidad que se tenga.
+* Para ordenar las columnas de la base es necesario llamar a la función `desc`.
+
+Ejemplo:
+
+* Para ordenar la columna de la variable `Sepal.Width` en orden ascendente:
+
+```{r}
+arrange_asc <- iris %>% 
+    arrange(Sepal.Width)
+
+arrange_asc %>% 
+    datatable()
+```
+
+* Ordenar la columna `Species` en orden descendente:
+
+```{r}
+arrange_desc <- iris %>%  
+    arrange(desc(Species))
+
+arrange_desc %>% 
+    datatable()
+```
+
+### `select`
+
+* Sirve para seleccionar o no seleccionar variables de la base de datos.
+* Para no seleccionar una variable hay que anteponer un signo `-` antes de su nombre.
+
+Ejemplo: 
+
+* Para seleccionar variables:
+
+```{r}
+select_Sepal <- iris %>% 
+    select(Sepal.Length, Sepal.Width) # Alternativamente select(matches("Sepal"))
+
+select_Sepal %>% 
+    datatable()
+```
+
+* Para no seleccionar variables:
+
+```{r}
+not_select_Sepal <- iris %>% 
+    select(-Sepal.Length, -Sepal.Width) # Alternativamente select(-matches("Sepal"))
+
+not_select_Sepal %>% 
+    datatable()
+```
+
+> Podemos ver que están todas las variables menos las que escribimos en la funcion `select`.
+
+## Actividades
+
+1. Cargue la base de datos con información sobre el coronavirus desde <https://ourworldindata.org/coronavirus-testing>. Luego muestre el tipo de cada variable de la base.
+2. ¿Cuál es la media de casos en Chile en el mes de enero de 2021?
+3. Genere una tabla con la cantidad de test hechos en América del Sur en el último mes, ordenadas de menor a mayor.
+4. ¿Cuál es el país con mayor cantidad de casos por millón de habitantes en Europa desde el inicio de la pandemia?
+5. Muestre información sobre la cantidad de casos que ha habido en las últimas 2 semanas a nivel continental en el mundo.
