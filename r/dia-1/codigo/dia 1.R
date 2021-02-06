@@ -1,67 +1,43 @@
-require(ggplot2); require(gghighlight); require(plotly)
-data$new_cases <- ifelse(is.na(data$new_cases), 0, data$new_cases)
+require(ggplot2); require(gghighlight); require(magrittr); require(dplyr)
 
-casos_1 <- data %>% 
-    filter(continent == "South America") %>%
-    filter(!is.na(new_cases)) %>% 
-    mutate(new_cases_perc = new_cases / population) %>% 
+# Actividad 1 -------------------------------------------------------------
+
+data <- rio::import(here::here("codigo", "datos-sin-procesar", "owid-covid-data.csv"))
+
+data %>% 
+    str()
+
+# Actividad 2 -------------------------------------------------------------
+
+media_casos_chile_enero_2021 <- data %>% 
+    filter(location == "Chile") %>% 
+    filter(date >= "2021-01-01" & date <= "2021-01-31") %>% 
     group_by(location) %>% 
-    summarize(median_casos = median(new_cases_perc),
-              mean_casos = mean(new_cases_perc)) %>% 
-    arrange(desc(median_casos), desc(mean_casos))
+    summarize(media_casos = mean(new_cases))
 
-casos_1
+# Actividad 3 -------------------------------------------------------------
 
-casos_2 <- data %>% 
-    filter(continent == "South America") %>%
+test_latinoamerica_ultimo_mes <- data %>% 
+    filter(continent == "South America") %>% 
+    filter(date >= "2021-01-10" & date <= "2021-02-10") %>% 
+    filter(!is.na(new_tests)) %>%
+    group_by(location) %>% 
+    summarize(total_test = sum(new_tests)) %>% 
+    arrange(total_test)
+
+# Actividad 4 -------------------------------------------------------------
+
+paises_europa_xmill <- data %>%
+    filter(continent == "Europe") %>% 
     filter(!is.na(new_cases_per_million)) %>% 
     group_by(location) %>% 
-    summarize(median_casos = median(new_cases_per_million),
-              mean_casos = mean(new_cases_per_million)) %>% 
-    arrange(desc(median_casos), desc(mean_casos))
+    summarize(cases_per_million = sum(new_cases_per_million)) %>% 
+    arrange(desc(cases_per_million))
 
-casos_2 
+# Actividad 5 -------------------------------------------------------------
 
-head(data)
-
-# Ejemplo 1
-
-data_chile <- data %>% 
-    filter(location == "Chile")
-
-data_continente <- data %>% 
-    group_by(continent) %>% 
-    summarize(total_cases = sum(new_cases),
-              cases_2 = 2 * total_cases)
-
-data_casos <- data %>% 
-    select(location, new_cases) %>% 
-    filter(location != "World") %>%
-    arrange(desc(new_cases))
-
-data <- data %>%
+casos_contientes_2_semanas <- data %>% 
+    filter(date >= "2021-01-27" & date <= "2021-02-10") %>% 
     filter(!is.na(new_cases)) %>% 
-    mutate(new_cases_perc = new_cases / population)
-
-data_cases_perc$new_cases_perc
-
-# data <- data %>%
-data %<>% 
-    filter(!is.na(new_cases_per_million))
-
-data$new_cases %>% mean %>% `+`(5)
-
-# boxplot
-# histogram
-# line
-# ribbon
-# col , position = "dodge"
-# args: linetype, mapping, color, alpha, fill, group
-
-g1 <- ggplot(casos_2) +
-    aes(date, new_cases, color = location) +
-    geom_line() +
-    gghighlight(location %in% c("Brazil", "Chile", "Argentina")) +
-    theme_bw()
-
-ggplotly(g1)
+    group_by(continent) %>% 
+    summarize(casos = sum(new_cases))

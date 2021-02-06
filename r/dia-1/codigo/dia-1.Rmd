@@ -1,5 +1,6 @@
 ---
-title: "Taller de Software Estadístico - Día 1"
+title: "Taller de Software Estadístico"
+subtitle: "Módulo 1"
 author: "CA FMAT & CEFMAT"
 date: "15 de febrero"
 output: 
@@ -13,7 +14,7 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE,
 require(magrittr); require(dplyr); require(DT)
 ```
 
-## Importar un data frame en R
+# Importar un data frame en R
 
 En vez de usar `codigo//datos-procesados//owid-covid-data.csv`, podemos usar lo siguiente gracias al package `here`:
 
@@ -30,7 +31,7 @@ head(data[, 1:5])
 > El package `rio` acepta cualquier formato de archivo.
 
 
-## El package `magrittr`
+# El package `magrittr`
 
 ```{r eval=FALSE}
 install.packages("maggritr")
@@ -44,9 +45,9 @@ require(magrittr)
 * Se hace con `CTRL o CMD` + `SHIFT` + `M`.
 * Su uso más común es para explorar bases de datos.
 
-### Ejemplos
+## Ejemplos
 
-#### 1. 
+### 1. 
 
 
 En vez de hacer:
@@ -64,7 +65,7 @@ Podemos hacer:
 ```
 Se ve mucho más &#10024; ordenado &#10024;. 
 
-#### 2. 
+### 2. 
 
 Esto nos dará error
 
@@ -83,7 +84,7 @@ Debemos hacer:
 ```
 > Admite operadores como "+", "-", "*" y "/". El número debe ir siempre entre paréntesis.
 
-#### 3.
+### 3.
 
 Podemos crear una variable y después modificarla.
 
@@ -104,7 +105,7 @@ suma_y_media <- suma_y_media %>%
 suma_y_media
 ```
 
-## El package `dplyr`
+# El package `dplyr`
 
 ```{r eval=FALSE}
 install.packages("dplyr")
@@ -114,14 +115,21 @@ require(dplyr)
 * Es una potente herramienta en conjunto a `magrittr` para analizar datos en R.
 * Sus principales funciones son `filter`, `group_by`, `summarize`, `mutate`, `arrange` y `select`.
 
-### `filter`
+## `filter`
 
-Sirve para decirle a R que selecciones solo las filas que cumplan la condición que indiquemos. Ejemplo:
+Sirve para decirle a R que seleccione solo las filas que cumplan la condición que indiquemos. Ejemplo:
+
+Veamos el tipo de variables de la base de datos `iris`.
 
 ```{r}
 # install.packages("DT")
 # require(DT)
 
+str(iris)
+```
+
+
+```{r}
 filtro_Sepal.Length <- iris %>% 
     filter(Sepal.Length >= 7.4)
 
@@ -129,7 +137,8 @@ filtro_Sepal.Length %>% # Solo las primeras 5 columnas
     datatable() # Para visualizar tablas de forma interactiva
 ```
 
-### `group_by` y `summarize`
+
+## `group_by` y `summarize`
 
 * Ambas deben ser usadas en conjunto.
 * `group_by`: Sirve para agrupar según una variable categórica. Puede recibir más de una variable, según la necesidad que se tenga.
@@ -147,7 +156,7 @@ group_by_Species %>%
     datatable() # Vizualizamos
 ```
 
-### `mutate`
+## `mutate`
 
 Podemos crear una variable nueva en la base de datos a partir de variables ya existentes. Ejemplo:
 
@@ -162,7 +171,7 @@ mutate_iris %>%
 > Vemos que se creo una variable nueva al final de la base.
 
 
-### `arrange`
+## `arrange`
 
 * Sirve para ordenar las columnas de la base de datos en orden ascendente o descendente.
 * Se puede seleccionar más de una variable, según la necesidad que se tenga.
@@ -190,7 +199,7 @@ arrange_desc %>%
     datatable()
 ```
 
-### `select`
+## `select`
 
 * Sirve para seleccionar o no seleccionar variables de la base de datos.
 * Para no seleccionar una variable hay que anteponer un signo `-` antes de su nombre.
@@ -217,12 +226,13 @@ not_select_Sepal %>%
     datatable()
 ```
 
-> Podemos ver que están todas las variables menos las que escribimos en la funcion `select`.
+> Podemos ver que están todas las variables menos las que escribimos en la función `select`.
 
-## Actividades
+# Actividades
 
 1. Cargue la base de datos con información sobre el coronavirus desde <https://ourworldindata.org/coronavirus-testing>. Luego muestre el tipo de cada variable de la base.
 2. ¿Cuál es la media de casos en Chile en el mes de enero de 2021?
-3. Genere una tabla con la cantidad de test hechos en América del Sur en el último mes, ordenadas de menor a mayor.
-4. ¿Cuál es el país con mayor cantidad de casos por millón de habitantes en Europa desde el inicio de la pandemia?
+3. Genere una tabla con la cantidad de test hechos en los países de América del Sur en el último mes, ordenadas de menor a mayor.
+4. ¿Cuál es el país con mayor cantidad de casos por millón de habitantes en Europa desde el inicio de la pandemia? ¿Y el segundo?
 5. Muestre información sobre la cantidad de casos que ha habido en las últimas 2 semanas a nivel continental en el mundo.
+
