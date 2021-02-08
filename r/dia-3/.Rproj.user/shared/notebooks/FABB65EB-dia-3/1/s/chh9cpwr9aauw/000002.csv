@@ -1,0 +1,9 @@
+"0","grupos_iris <- iris %>% "
+"0","    group_by(Species) %>% "
+"0","    summarize(max_Sepal.Length, max(Sepal.Length))"
+"2","Error: Problem with `summarise()` input `..1`.
+[31mx[39m objeto 'max_Sepal.Length' no encontrado
+[34mi[39m Input `..1` is `max_Sepal.Length`.
+[34mi[39m The error occurred in group 1: Species = ""setosa"".
+[90mRun `rlang::last_error()` to see where the error occurred.[39m
+"
