@@ -82,11 +82,11 @@ Debemos hacer:
     "*" (5) %>% 
     mean()
 ```
-> Admite operadores como "+", "-", "*" y "/". El número debe ir siempre entre paréntesis.
+> Admite operadores como "+", "-", "*" y "/". El valor numérico debe ir siempre entre paréntesis.
 
 ### 3.
 
-Podemos crear una variable y después modificarla.
+Podemos crear una variable y después realizarle una modificación.
 
 ```{r}
 
@@ -117,9 +117,9 @@ require(dplyr)
 
 ## `filter`
 
-Sirve para decirle a R que seleccione solo las filas que cumplan la condición que indiquemos. Ejemplo:
+Sirve para indicarle a R que seleccione solo las filas que cumplan la condición que establezcamos. Ejemplo:
 
-Veamos el tipo de variables de la base de datos `iris`.
+Para empezar, veamos el tipo de variables de la base de datos `iris`.
 
 ```{r}
 # install.packages("DT")
@@ -128,12 +128,13 @@ Veamos el tipo de variables de la base de datos `iris`.
 str(iris)
 ```
 
+Ahora usemos la función `filter`:
 
 ```{r}
 filtro_Sepal.Length <- iris %>% 
     filter(Sepal.Length >= 7.4)
 
-filtro_Sepal.Length %>% # Solo las primeras 5 columnas
+filtro_Sepal.Length %>%
     datatable() # Para visualizar tablas de forma interactiva
 ```
 
@@ -220,7 +221,7 @@ select_Sepal %>%
 
 ```{r}
 not_select_Sepal <- iris %>% 
-    select(-Sepal.Length, -Sepal.Width) # Alternativamente select(-matches("Sepal"))
+    select(!c(Sepal.Length, Sepal.Width)) # Alternativamente select(!matches("Sepal"))
 
 not_select_Sepal %>% 
     datatable()
@@ -232,7 +233,7 @@ not_select_Sepal %>%
 
 1. Cargue la base de datos con información sobre el coronavirus desde <https://ourworldindata.org/coronavirus-testing>. Luego muestre el tipo de cada variable de la base.
 2. ¿Cuál es la media de casos en Chile en el mes de enero de 2021?
-3. Genere una tabla con la cantidad de test hechos en los países de América del Sur en el último mes, ordenadas de menor a mayor.
+3. Genere una tabla con la cantidad de test hechos en los países de América del Sur en el último mes, ordenado de menor a mayor.
 4. ¿Cuál es el país con mayor cantidad de casos por millón de habitantes en Europa desde el inicio de la pandemia? ¿Y el segundo?
-5. Muestre información sobre la cantidad de casos que ha habido en las últimas 2 semanas a nivel continental en el mundo.
+5. Muestre información sobre la cantidad de casos que han habido en las últimas 2 semanas en cada continente.
 
