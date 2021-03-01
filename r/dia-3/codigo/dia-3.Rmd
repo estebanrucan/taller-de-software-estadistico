@@ -9,6 +9,7 @@ output:
 editor_options: 
   markdown: 
     wrap: 72
+  chunk_output_type: inline
 params:
   especie: "setosa"
 ---
@@ -21,33 +22,35 @@ require(tidyverse); require(plotly); require(DT); require(knitr)
 
 # R Markdown
 
-*   Su función principal es la generación de informes, documentos o
+-   Su función principal es la generación de informes, documentos o
     presentaciones. Es una herramienta muy potente ya que permite
     escribir código en muchos [lenguajes de
     programación](https://bookdown.org/yihui/rmarkdown/language-engines.html)
     a través de estructuras llamadas "chunks".
-*   Soporta el lenguaje Markdown.
-*   Es posible escribir expresiones matemáticas entre signos de dólar (\$ \$) usando LaTeX. También acepta la opción de doble signo dólar (\$ \$   \$ \$).
+-   Soporta el lenguaje Markdown.
+-   Es posible escribir expresiones matemáticas entre signos de dólar
+    (\$ \$) usando LaTeX. También acepta la opción de doble signo dólar
+    (\$ \$ \$ \$).
 
 ## La estructura YAML
 
-*   Esta entre tres guiones medios por arriba y abajo ("---")
-*   Es la configuración inicial de R Markdown.
+-   Esta entre tres guiones medios por arriba y abajo ("\-\-\-")
+-   Es la configuración inicial de R Markdown.
 
 Algunos parámetros que pueden ir en la estructura YAML son:
 
-*   `title`: Es para especificar el título del R Markdown (no confundir
+-   `title`: Es para especificar el título del R Markdown (no confundir
     con nombre del archivo con extensión `.Rmd`)
-*   `subtitle`: Es para especificar el subtítulo del R Markdown.
-*   `author`: Acá se especifica le autor del R Markdown.
-*   `date`: En este parámetro se indica la fecha en que se está
+-   `subtitle`: Es para especificar el subtítulo del R Markdown.
+-   `author`: Acá se especifica le autor del R Markdown.
+-   `date`: En este parámetro se indica la fecha en que se está
     escribiendo el R Markdown.
-*   `output`: Este parámetro hay que especificarlo obligatoriamente,
+-   `output`: Este parámetro hay que especificarlo obligatoriamente,
     pues acá indicamos cuál es el formato del archivo de salida.
 
 Ejemplos:
 
-*   Una estructura YAML con salida en formato html.
+-   Una estructura YAML con salida en formato html.
 
 \-\-\- <br> title: "Taller de Software Estadístico" <br> subtitle: "Módulo
 3" <br> author: "CA FMAT & CEFMAT" <br> date: "17 de febrero" <br>
@@ -59,7 +62,7 @@ Podemos usar el lenguaje html para personalizar el documento.
 [prettydoc](https://github.com/yixuan/prettydoc/) y
 [rmdformats](https://github.com/juba/rmdformats).
 
-*   Una estructura YAML con salida en formato pdf:
+-   Una estructura YAML con salida en formato pdf:
 
 \-\-\- <br> title: "Informe coronavirus en chile" <br> author: "Comisión de
 salud" <br> date: "17 de julio 2021" <br> output: pdf_document <br> \-\-\-
@@ -77,122 +80,94 @@ simples carácteres.
 
 Resumen:
 
-<table>
-<thead>
-  <tr>
-    <th>Código</th>
-    <th>Resultado</th>
-  </tr>
-</thead>
-<tbody>
-  <tr>
-    <td>\# Texto</td>
-    <td><h1> Texto </h1></td>
-  </tr>
-  <tr>
-    <td>\#\# Texto</td>
-    <td><h2> Texto </h2></td>
-  </tr>
-  <tr>
-    <td>\#\#\# Texto</td>
-    <td><h3> Texto </h3></td>
-  </tr>
-  <tr>
-    <td>\#\#\#\# Texto</td>
-    <td><h4> Texto </h4></td>
-  </tr>
-  <tr>
-    <td>\_cursiva_</td>
-    <td> _cursiva_</td>
-  </tr>
-  <tr>
-    <td>\__negrita__</td>
-    <td> __negrita__</td>
-  </tr>
-  <tr>
-    <td> $\text{[Google](http://www.google.cl)}$</td>
-    <td>[Google](http://www.google.cl)</td>
-  </tr>
-  <tr>
-    <td> \`codigo\` </td>
-    <td> `codigo` </td>
-  </tr>
-  <tr>
-    <td><br>1. Texto 1<br>2. Texto 2<br>3. Texto 3<br>4. Texto 4</td>
-    <td><ol>
-  <li>Texto 1</li>
-  <li>Texto 2</li>
-  <li>Texto 3</li>
-  <li>Texto 4</li>
-</ol> </td>
-  </tr>
-    <tr>
-    <td><br>\* Texto 1<br>\* Texto 2<br>\* Texto 3<br>\* Texto 4</td>
-    <td><ul type="A">
-  <li>Texto 1</li>
-  <li>Texto 2</li>
-  <li>Texto 3</li>
-  <li>Texto 4</li>
-</ul> </td>
-  </tr>
-</tbody>
-</table>
++--------------------------------------------+--------------------------------+
+| Código                                     | Resultado                      |
++============================================+================================+
+| \# Texto                                   | # Texto                        |
++--------------------------------------------+--------------------------------+
+| \#\# Texto                                 | ## Texto                       |
++--------------------------------------------+--------------------------------+
+| \#\#\# Texto                               | ### Texto                      |
++--------------------------------------------+--------------------------------+
+| \#\#\#\# Texto                             | #### Texto                     |
++--------------------------------------------+--------------------------------+
+| \_cursiva\_                                | _cursiva_                      |
++--------------------------------------------+--------------------------------+
+| \_\_negrita\_\_                            | __negrita__                    |
++--------------------------------------------+--------------------------------+
+| $\text{[Google](http://www.google.cl)}$    | [Google](http://www.google.cl) |
++--------------------------------------------+--------------------------------+
+| \`codigo\`                                 | `codigo`                       |
++--------------------------------------------+--------------------------------+
+| \                                          | 1.  Texto 1                    |
+| 1. Texto 1\                                |                                |
+| 2. Texto 2\                                | 2.  Texto 2                    |
+| 3. Texto 3\                                |                                |
+| 4. Texto 4                                 | 3.  Texto 3                    |
+|                                            |                                |
+|                                            | 4.  Texto 4                    |
++--------------------------------------------+--------------------------------+
+| \                                          | -   Texto 1                    |
+| \\\* Texto 1\                              |                                |
+| \\\* Texto 2\                              | -   Texto 2                    |
+| \\\* Texto 3\                              |                                |
+| \\\* Texto 4                               | -   Texto 3                    |
+|                                            |                                |
+|                                            | -   Texto 4                    |
++--------------------------------------------+--------------------------------+
 
 ### Tablas
 
-* Se pueden hacer tablas rápidamente usando barras verticales (|) y guiones medios (-)
-* Para entender mejor cómo crear tablas veamos el siguiente ejemplo:
+-   Se pueden hacer tablas rápidamente usando barras verticales (|) y
+    guiones medios (-)
+-   Para entender mejor cómo crear tablas veamos el siguiente ejemplo:
 
 Para crear la siguiente tabla:
 
-| Edad | Nacimientos | Mujeres | TFR por 1000 |
+| Edad  | Nacimientos | Mujeres | TFR por 1000 |
 |-------|-------------|---------|--------------|
-| 20 | 20 | 100 | 200 |
-| 21 | 25 | 100 | 250 |
-| 22 | 30 | 100 | 300 |
-| 23 | 35 | 100 | 350 |
-| 24 | 40 | 100 | 400 |
-| Total | 150 | 500 | 1500 |
-| 20-24 | 150 | 500 | 300 |
-
+| 20    | 20          | 100     | 200          |
+| 21    | 25          | 100     | 250          |
+| 22    | 30          | 100     | 300          |
+| 23    | 35          | 100     | 350          |
+| 24    | 40          | 100     | 400          |
+| Total | 150         | 500     | 1500         |
+| 20-24 | 150         | 500     | 300          |
 
 Debemos usar el siguiente código.
 
 ```{md}
-| Edad | Nacimientos | Mujeres | TFR por 1000 |
+| Edad  | Nacimientos | Mujeres | TFR por 1000 |
 |-------|-------------|---------|--------------|
-| 20 | 20 | 100 | 200 |
-| 21 | 25 | 100 | 250 |
-| 22 | 30 | 100 | 300 |
-| 23 | 35 | 100 | 350 |
-| 24 | 40 | 100 | 400 |
-| Total | 150 | 500 | 1500 |
-| 20-24 | 150 | 500 | 300 |
+| 20    | 20          | 100     | 200          |
+| 21    | 25          | 100     | 250          |
+| 22    | 30          | 100     | 300          |
+| 23    | 35          | 100     | 350          |
+| 24    | 40          | 100     | 400          |
+| Total | 150         | 500     | 1500         |
+| 20-24 | 150         | 500     | 300          |
 ```
-
 
 ## Chunks
 
-* La siguiente estructura es un "chunk" de R.
+-   La siguiente estructura es un "chunk" de R.
 
 \`\`\`{r}
 
 \`\`\`
 
-* Dentro podemos escribir código en en lenguaje que especifiquemos en la llave {}.
+-   Dentro podemos escribir código en en lenguaje que especifiquemos en
+    la llave {}.
 
 Esto es un chunk con código de Python:
 
-\`\`\`{python} <br>
-for i in range(3): <br>
-  print(i) <br>
-\`\`\`
+\`\`\`{python} <br> for i in range(3): <br> print(i) <br> \`\`\`
 
-* Podemos nombrar un chunk para trabajar con más orden:
+-   Podemos nombrar un chunk para trabajar con más orden:
 
 \`\`\`{r IMPORTAR DATOS}
 
-data <- rio::import("datos.csv")
+data \<- rio::import("datos.csv")
 
 \`\`\`
 
@@ -200,79 +175,88 @@ data <- rio::import("datos.csv")
 
 Dentro de las llaves pueden ir los siguientes parámetros:
 
-* `echo`: Cuando el argumento es FALSE, muestra el output pero no el código.
-* `include`: Cuando es FALSE, no muestra ni el código ni el output.
-* `result`: Cuando es FALSE, muestra el código pero no el resultado.
-* `message`: Cuando es FALSE, no muestra mensajes provocados por la ejecución del código.
-* `warning`: Cuando es FALSE, no muestra advertencias provocadas por el código.
-* `fig.align`: Puede recibir como argumentos a "center", "right" y "left".
+-   `echo`: Cuando el argumento es FALSE, muestra el output pero no el
+    código.
+-   `include`: Cuando es FALSE, no muestra ni el código ni el output.
+-   `result`: Cuando es FALSE, muestra el código pero no el resultado.
+-   `message`: Cuando es FALSE, no muestra mensajes provocados por la
+    ejecución del código.
+-   `warning`: Cuando es FALSE, no muestra advertencias provocadas por
+    el código.
+-   `fig.align`: Puede recibir como argumentos a "center", "right" y
+    "left".
 
-Pueden ver más opciones en este [enlace](https://yihui.org/knitr/options/).
+Pueden ver más opciones en este
+[enlace](https://yihui.org/knitr/options/).
 
 Ejemplo:
 
-\`\`\`{r GRAFICO 1, echo=FALSE, fig.align = "center"} 
+\`\`\`{r GRAFICO 1, echo=FALSE, fig.align = "center"}
 
-ggplot(iris) + <br>
+ggplot(iris) + <br> 
 $\ \ \ \ $ aes(Sepal.Length, Petal.Length) + <br>
-$\ \ \ \ $ geom_point(color = "brown4") 
+$\ \ \ \ $ geom_point(color = "brown4")
 
 \`\`\`
 
-Mostrará en el output un gráfico centrado, pero no el código que lo produce.
+Mostrará en el output un gráfico centrado, pero no el código que lo
+produce.
 
 ### El chunk "setup"
 
-* Al crear un archivo R Markdown, se creará un chunk por defecto, abajo de la estructura YAML, llamado "setup" y tendrá como parámetro `include=FALSE`. 
+-   Al crear un archivo R Markdown, se creará un chunk por defecto,
+    abajo de la estructura YAML, llamado "setup" y tendrá como parámetro
+    `include=FALSE`.
 
-* Es muy importante, ya que incluye las configuraciones iniciales de los chunks.
+-   Es muy importante, ya que incluye las configuraciones iniciales de
+    los chunks.
 
-* Dentro de la función `knitr::opts_chunk$set`, podemos escribir nuevos parámetros que se aplicarán a TODOS los chunks.
+-   Dentro de la función `knitr::opts_chunk$set`, podemos escribir
+    nuevos parámetros que se aplicarán a TODOS los chunks.
 
 Ejemplo:
 
-\`\`\`{r setup, include=FALSE}<br>
-knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, fig.align = "center") <br>
-\`\`\`
+\`\`\`{r setup, include=FALSE}<br> knitr::opts_chunk\$set(echo = TRUE,
+message = FALSE, warning = FALSE, fig.align = "center") <br> \`\`\`
 
-Además, podemos agregar los packages que usaremos durante la utilización de R Markdown:
+Además, podemos agregar los packages que usaremos durante la utilización
+de R Markdown:
 
-\`\`\`{r setup, include=FALSE} <br>
-knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, 
-                      fig.align = "center", comment = NA)
+\`\`\`{r setup, include=FALSE} <br> knitr::opts_chunk\$set(echo = TRUE,
+message = FALSE, warning = FALSE, fig.align = "center", comment = NA)
 
-\# Packages <br>
-require(tidyverse) <br>
-require(DT) <br>
-\`\`\`
-
+\# Packages <br> require(tidyverse) <br> require(DT) <br> \`\`\`
 
 ### Chunks inline
 
-* Son bastante útiles, nos permite usar un lenguaje de programación mientras escribimos.
-* Su uso se debe hacer mediante acentos graves (\`\` \`\`)
-* Debemos especificar el lenguaje que usaremos antes de usar código.
+-   Son bastante útiles, nos permite usar un lenguaje de programación
+    mientras escribimos.
+-   Su uso se debe hacer mediante acentos graves (\` \`)
+-   Debemos especificar el lenguaje que usaremos antes de usar código.
 
 Ejemplo:
 
-La media entre los números 2, 4 y 12 es  \` r mean(c(2, 4, 12)) \`.
+La media entre los números 2, 4 y 12 es \` r mean(c(2, 4, 12)) \`.
 
 Producirá:
 
-La media entre los números 2, 4 y 12 es  `r mean(c(2, 4, 12))`.
+La media entre los números 2, 4 y 12 es `r mean(c(2, 4, 12))`.
 
-* Podemos llamar variables creadas anteriormente en el código. Ejemplo:
+-   Podemos llamar variables creadas anteriormente en el código.
+    Ejemplo:
 
 ```{r}
 media_Petal.Length <- iris$Sepal.Length %>% mean
 ```
 
-La media del largo de los pétalos de iris es \` r media\_Petal.Length \`. <br>
-La media del largo de los pétalos de iris es `r media_Petal.Length`.
+La media del largo de los pétalos de iris es \` r media_Petal.Length \`.
+<br> La media del largo de los pétalos de iris es
+`r media_Petal.Length`.
 
 ## Tablas desde R
 
-* En html, la mejor opción es usar la función `datatable` del package `DT`, ya que es una opción interactiva.
+-   En html, la mejor opción es usar la función `datatable` del package
+    `DT`, ya que es una opción interactiva.
 
 Ejemplo:
 
@@ -287,7 +271,8 @@ grupos_iris %>%
     datatable()
 ```
 
-* En formatos pdf, la mejor opción es usar la función `kable` del package `knitr`.
+-   En formatos pdf, la mejor opción es usar la función `kable` del
+    package `knitr`.
 
 Ejemplo
 
@@ -298,12 +283,13 @@ grupos_iris %>%
     kable()
 ```
 
-
-Les invitamos a aprender más sobre tablas en el siguiente [link](https://bookdown.org/yihui/rmarkdown-cookbook/tables.html).
+Les invitamos a aprender más sobre tablas en el siguiente
+[link](https://bookdown.org/yihui/rmarkdown-cookbook/tables.html).
 
 ## Imágenes
 
-Podemos cargar imágenes usando la función `include_graphics` del package `knitr`.
+Podemos cargar imágenes usando la función `include_graphics` del package
+`knitr`.
 
 ```{r fig.asp=0.0001}
 include_graphics(here::here("codigo", "imagenes", "1.jpg"))
@@ -311,30 +297,25 @@ include_graphics(here::here("codigo", "imagenes", "1.jpg"))
 
 ## Reportes automáticos
 
-* Se puede crear un "template", e ir cambiando el argumento `params`.
-* `params` es un parámetro de la estructura YAML.
-* Muy útil para la generación de reportes automáticos.
+-   Se puede crear un "template", e ir cambiando el argumento `params`.
+-   `params` es un parámetro de la estructura YAML.
+-   Muy útil para la generación de reportes automáticos.
 
 Ejemplo:
 
-\-\-\- <br>
-title: "Taller de Software Estadístico" <br>
-subtitle: "Módulo 3" <br>
-author: "CA FMAT & CEFMAT" <br>
-date: "17 de febrero" <br>
-output: html_document <br>
-params: <br>
-$\ \ $especie: "setosa" <br>
-\-\-\-
+\-\-\- <br> title: "Taller de Software Estadístico" <br> subtitle: "Módulo
+3" <br> author: "CA FMAT & CEFMAT" <br> date: "17 de febrero" <br>
+output: html_document <br> params: <br> $\ \ $especie: "setosa" <br> \-\-\-
 
-Creemos un histograma para la variable `Sepal.Length`, para la especie "setosa" de iris.
+Creemos un histograma para la variable `Sepal.Length`, para la especie
+"setosa" de iris.
 
 ```{r}
 iris_especie_Sepal.Length <- iris %>% 
     filter(Species == params$especie)
   
 grafico_especie <- ggplot(iris_especie_Sepal.Length) +
-    aes(Sepal.Length) +
+    aes(x = Sepal.Length) +
     geom_histogram(color = "dodgerblue3", fill = "dodgerblue4", alpha = 0.7) +
     labs(x = "Sepal Length", y = "Frecuencia", 
          title = paste("Histograma de Sepal Lenth para la especie", params$especie, sep = " ")) +
@@ -346,4 +327,6 @@ grafico_especie %>%
 
 # Actividad
 
-Genere un reporte automático en R Markdown (formato html) que describa la situación en enero de 2021 respecto al coronavirus para cada continente. ¡Use toda tu imaginación!
+Genere un reporte automático en R Markdown (formato html) que describa
+la situación en enero de 2021 respecto al coronavirus en Argentina, Chile y Perú. ¡Use toda su imaginación!
+

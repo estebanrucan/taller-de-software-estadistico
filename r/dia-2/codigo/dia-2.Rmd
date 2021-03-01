@@ -37,8 +37,6 @@ iris %>% str
 Los gráficos con `ggplot2` suelen tener la siguiente estructura
 
 ```{r}
-data <- rio::import(here::here("codigo","datos-sin-procesar", "owid-covid-data.csv"))
-
 # Llamado a la función "ggplot" e indicar base de datos con la información a graficar
 ggplot(data = iris) + 
     # Aesthetics: Cómo dibujar los distintos trazos, formas y colores del gráfico, "Bosquejo"
@@ -392,5 +390,5 @@ tiempo_y_desempleo %>%
 
 # Actividad
 
-Genere un gráfico de lineas para ver la evolución de la cantidad de casos por día en Chile, Argentina y Perú en enero de 2021. ¡Personalizelo a su gusto!
+Usando la base de datos del __Módulo 1__, genere un gráfico de lineas para ver la evolución de la cantidad de casos por día en Chile, Argentina y Perú en enero de 2021. ¡Personalizelo a su gusto!
 _Hint_: Use `dplyr` y `magrittr`.

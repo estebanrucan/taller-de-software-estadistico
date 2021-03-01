@@ -1,0 +1,186 @@
+---
+title: "Mi primer R Markdown"
+subtitle: "Módulo 3"
+author: "CA FMAT & CEFMAT"
+date: "17 de febrero del 2021"
+output: html_document
+params:
+    especie: "setosa"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.align = "center",
+                      message = FALSE, warning = FALSE)
+
+# Packages
+
+require(ggplot2)
+require(magrittr)
+require(dplyr)
+require(plotly)
+require(rio)
+require(DT)
+require(knitr)
+```
+
+# R Markdown 
+
+## Markdown
+
+* Es un lenguaje de marcado
+
+# Título
+
+## Subtítulo
+
+### Sub-Subtpitulo
+
+$\vdots$
+
+$\dfrac{2}{3}$
+
+$$ \int_0^xf(t)\ dt$$
+
+* Para ejecutar un R Markdown (generar un output), debemos hacer click donde dice "Knit", o presionar `CTRL o CMD + SHIFT + K`
+
+* Esto está escrito en _cursiva_.
+
+* Esto esta escrito en __negrita__.
+
+* Accedamos al siguiente [link](https://www.google.cl).
+
+* Esto tiene apariencia de `codigo`.
+
+* Con el asterisco (*) puedo hacer una viñeta.
+
+
+1. Texto a
+2. Texto b
+3. Texto c
+
+### Tablas
+
+* Se hacen con guiones medios y barras varticales (|)
+
+|Edad|Estatura|
+|----|--------|
+|40  | 189    |
+|45  | 140    |
+
+### Chunks
+
+```{r}
+print(paste("Esto es un código de R"))
+
+for (i in 1:2) {
+    print(i)
+}
+```
+
+```{python}
+print("Esto es código en Python")
+
+for i in range(1, 3):
+    print(i)
+
+```
+
+```{r Cargar Datos}
+library(datasets)
+data("economics")
+```
+
+* echo: cuando es FALSE, output pero no código
+
+* include: cuando es FALSE, ni código ni output.
+
+* result: cuando es FALSE, muestra el código pero no resultado
+
+* message: cuando es FALSE, no muestra mensajes asociados al código.
+
+* warning: cuando es FALSE, no muestra advertencias
+
+* error: cuando es FALSE, no muestra errores (solo no muestra mensaje de error)
+
+* fig.align: Puede ser "right", "left" o "center".
+
+```{r gráfico, echo=FALSE, fig.align="center", message=FALSE}
+
+ggplot(data = iris) +
+    aes(x = Sepal.Length, y = Petal.Length, color = Species) +
+    geom_point()
+
+```
+
+El resultado de la media entre 3, 4 y 5 es:  ``r mean(c(3,4,5))``.
+
+```{r ejemplo inline}
+variable <- mean(c(3, 4, 5))
+```
+
+El resultado de la media entre 3, 4 y 5 es:  ``r variable``.
+
+```{r importar datos}
+data <- import(here::here("datos-sin-procesar", "owid-covid-data.csv"))
+```
+
+
+```{r creo tabla}
+chile_arg_peru <- data %>% 
+    filter(location %in% c("Chile", "Argentina", "Peru")) %>% 
+    filter(date >= "2021-01-01" & date <= "2021-01-31") %>% 
+    filter(!is.na(new_cases)) %>% 
+    select(location, date, new_cases) %>% 
+    group_by(location) %>% 
+    summarize(media_casos = mean(new_cases),
+              suma_casos = sum(new_cases)) %>% 
+    arrange(desc(media_casos))
+
+chile_arg_peru
+```
+
+Ahora usamos package DT:
+
+```{r}
+# install.packages("DT")
+# require(DT)
+chile_arg_peru %>% 
+    datatable
+    
+```
+
+* Si usamos un output en formato pdf: 
+
+```{r}
+# install.packages("knitr")
+# require(knitr)
+
+chile_arg_peru %>% 
+    kable()
+```
+
+### Imágenes
+
+```{r Importar imagenes}
+# require(knitr)
+
+include_graphics(here::here("imagenes", "1.jpg"))
+```
+
+### Reportes automáticos
+
+```{r}
+iris_especie_Sepal.Length <- iris %>% 
+    filter(Species == params$especie)
+
+grafico <- ggplot(iris_especie_Sepal.Length) +
+    aes(x = Sepal.Length) +
+    geom_histogram(color = "dodgerblue3", fill = "dodgerblue4", alpha = 0.7) +
+    labs(x = "Sepal Length", y = "Frecuencia", 
+         title = paste("Histograma de Sepal Lenth para la especie", params$especie, sep = " ")) +
+    theme_bw()
+
+grafico %>% 
+    ggplotly()
+```
+

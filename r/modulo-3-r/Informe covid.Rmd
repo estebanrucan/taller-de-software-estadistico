@@ -1,0 +1,57 @@
+---
+author: "CA FMAT & CEFMAT"
+date: "17-02-2021"
+output: 
+  rmdformats::readthedown:
+    highlight: kate
+params:
+    pais: "Peru"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, fig.align = "center") 
+
+# Packages
+require(ggplot2)
+require(magrittr)
+require(dplyr)
+require(plotly)
+require(rio)
+require(DT)
+require(knitr)
+```
+
+```{r datos}
+data <- import(here::here("datos-sin-procesar", "owid-covid-data.csv"))
+```
+
+
+# Informe covid para `r params$pais`
+
+## Situación de los casos
+
+```{r tabla_situacion}
+tabla_situacion <- data %>% 
+    filter(location == params$pais) %>% 
+    filter(!is.na(new_cases))
+```
+
+```{r}
+grafico_1 <- ggplot(tabla_situacion) +
+    aes(x = date, y = new_cases) +
+    geom_line(color = "brown4") +
+    labs(x = "Fecha", y = "Nuevos Casos", title = paste("Nuevos casos desde 2020 en", params$pais, sep = " ")) +
+    theme_bw()
+
+grafico_1 %>% 
+    ggplotly
+```
+
+```{r}
+media <- tabla_situacion$new_cases %>% 
+    mean %>% 
+    round(., 2)
+```
+
+
+El promedio de casos en `r params$pais` es `r media`.

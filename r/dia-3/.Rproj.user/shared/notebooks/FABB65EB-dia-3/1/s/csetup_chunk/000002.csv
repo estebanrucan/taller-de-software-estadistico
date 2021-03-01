@@ -1,4 +1,3 @@
-"0","require(tidyverse); require(plotly); require(DT); require(knitr)
-"
-"2","Loading required package: knitr
-"
+"0","knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, "
+"0","                      fig.align = ""center"", comment = NA)"
+"0","require(tidyverse); require(plotly); require(DT); require(knitr) "

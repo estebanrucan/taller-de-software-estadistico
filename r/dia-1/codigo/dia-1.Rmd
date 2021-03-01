@@ -128,7 +128,7 @@ Para empezar, veamos el tipo de variables de la base de datos `iris`.
 str(iris)
 ```
 
-Ahora usemos la función `filter`:
+Ahora usemos la función `filter` para ver tuplas que solo tengan la variable `Sepal.Length` mayor o igual a 7.4:
 
 ```{r}
 filtro_Sepal.Length <- iris %>% 
@@ -147,6 +147,8 @@ filtro_Sepal.Length %>%
 
 Ejemplo:
 
+Veamos la media de `Sepal.Length` y `Sepal.Width` para cada especie.
+
 ```{r}
 group_by_Species <- iris %>% 
     group_by(Species) %>% # Agrupamos según especie 
@@ -160,6 +162,8 @@ group_by_Species %>%
 ## `mutate`
 
 Podemos crear una variable nueva en la base de datos a partir de variables ya existentes. Ejemplo:
+
+Creamos una base de datos que en su última columna tenga información sobre la suma de `Sepal.Length` y `Sepal.Width` para cada tupla.
 
 ```{r}
 mutate_iris <- iris %>% 
@@ -203,7 +207,7 @@ arrange_desc %>%
 ## `select`
 
 * Sirve para seleccionar o no seleccionar variables de la base de datos.
-* Para no seleccionar una variable hay que anteponer un signo `-` antes de su nombre.
+* Para no seleccionar una variable hay que anteponer un signo `!` y un vector con los nombres de las variables.
 
 Ejemplo: 
 
