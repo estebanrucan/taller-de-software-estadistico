@@ -8,9 +8,15 @@
 
 El Taller se dividirá en 3 módulos vía Zoom:
 
-* __Módulo 1__: Lunes 15 de febrero 19:00 hrs.
-* __Módulo 2__: Martes 16 de febrero 19:00 hrs.
-* __Módulo 3__: Miércoles 17 de febrero 19:00 hrs.
+* __Módulo 1__: 
+  * Lunes 15 de febrero 19:00 hrs. 
+  * [Link al video del módulo](https://youtu.be/u-ktUNe-Itg).
+* __Módulo 2__: 
+  * Martes 16 de febrero 19:00 hrs.
+  * [Link al video del módulo](https://youtu.be/CjYdFCuLzXc).
+* __Módulo 3__: 
+  * Miércoles 17 de febrero 19:00 hrs.
+  * [Link al video del módulo](https://youtu.be/RQ0UdWYmpFM).
 
 ## Programa
 
